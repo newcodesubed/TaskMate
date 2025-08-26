@@ -22,6 +22,7 @@ export const signup = async (req: Request, res: Response) => {
 };
 
 export const login = async (req: Request, res: Response) => {
+    console.log('Login request body:', req.body);
     const { username, password } = req.body;
 
     try {
