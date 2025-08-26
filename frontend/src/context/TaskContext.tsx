@@ -2,7 +2,7 @@ import React, { createContext, useState, useContext } from 'react';
 import type { ReactNode } from 'react';
 import { getTasks as apiGetTasks, createTask as apiCreateTask, updateTask as apiUpdateTask, deleteTask as apiDeleteTask } from '../api/taskApi';
 
-interface Task {
+export interface Task {
     id: number;
     title: string;
     completed: boolean;
