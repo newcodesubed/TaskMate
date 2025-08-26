@@ -11,6 +11,7 @@ export interface Task {
 
 interface TaskContextType {
     tasks: Task[];
+    setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
     fetchTasks: () => void;
     addTask: (title: string, priority: 'Low' | 'Medium' | 'High') => void;
     updateTask: (id: number, title: string, completed: boolean, priority: 'Low' | 'Medium' | 'High') => void;
@@ -43,7 +44,7 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
     };
 
     return (
-        <TaskContext.Provider value={{ tasks, fetchTasks, addTask, updateTask, deleteTask }}>
+        <TaskContext.Provider value={{ tasks,setTasks, fetchTasks, addTask, updateTask, deleteTask }}>
             {children}
         </TaskContext.Provider>
     );

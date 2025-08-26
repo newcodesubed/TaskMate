@@ -6,7 +6,7 @@ import TaskFormModal from '../components/tasks/TaskFormModal';
 import { logout as apiLogout } from '../api/authApi';
 
 const Dashboard = () => {
-  const { tasks, fetchTasks, addTask, updateTask, deleteTask } = useTasks();
+  const { tasks,setTasks, fetchTasks, addTask, updateTask, deleteTask } = useTasks();
   const [modalTask, setModalTask] = useState<any>(null);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
@@ -39,6 +39,7 @@ const Dashboard = () => {
 
   const handleLogout = async () => {
     await apiLogout();
+    setTasks([]);
     navigate('/login');
   };
 

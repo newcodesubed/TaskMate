@@ -1,23 +1,11 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import * as taskModel from '../models/taskModel';
 import { AuthRequest } from '../middleware/authMiddleware';
 
 export const getTasks = async (req: AuthRequest, res: Response) => {
     try {
-        const tasks = await taskModel.getAllTasks();
+        const tasks = await taskModel.getAllTasks(req.user.id);
         res.json(tasks);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Server error' });
-    }
-};
-
-export const getTask = async (req: AuthRequest, res: Response) => {
-    try {
-        const id = Number(req.params.id);
-        const task = await taskModel.getTaskById(id);
-        if (!task) return res.status(404).json({ message: 'Task not found' });
-        res.json(task);
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Server error' });
@@ -27,7 +15,7 @@ export const getTask = async (req: AuthRequest, res: Response) => {
 export const createNewTask = async (req: AuthRequest, res: Response) => {
     try {
         const { title, priority } = req.body;
-        const task = await taskModel.createTask(title, priority);
+        const task = await taskModel.createTask(title, priority, req.user.id);
         res.status(201).json(task);
     } catch (err) {
         console.error(err);
@@ -39,7 +27,7 @@ export const updateExistingTask = async (req: AuthRequest, res: Response) => {
     try {
         const id = Number(req.params.id);
         const { title, completed, priority } = req.body;
-        const task = await taskModel.updateTask(id, title, completed, priority);
+        const task = await taskModel.updateTask(id, title, completed, priority, req.user.id);
         if (!task) return res.status(404).json({ message: 'Task not found' });
         res.json(task);
     } catch (err) {
@@ -51,9 +39,21 @@ export const updateExistingTask = async (req: AuthRequest, res: Response) => {
 export const deleteExistingTask = async (req: AuthRequest, res: Response) => {
     try {
         const id = Number(req.params.id);
-        const deleted = await taskModel.deleteTask(id);
+        const deleted = await taskModel.deleteTask(id, req.user.id);
         if (!deleted) return res.status(404).json({ message: 'Task not found' });
         res.json({ message: 'Task deleted' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
+export const getTask = async (req: AuthRequest, res: Response) => {
+    try {
+        const id = Number(req.params.id);
+        const task = await taskModel.getTaskById(id, req.user.id);
+        if (!task) return res.status(404).json({ message: 'Task not found' });
+        res.json(task);
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Server error' });
