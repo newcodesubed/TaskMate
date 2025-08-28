@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTasks } from '../context/TaskContext';
@@ -7,6 +8,7 @@ import { logout as apiLogout } from '../api/authApi';
 
 const Dashboard = () => {
   const { tasks,setTasks, fetchTasks, addTask, updateTask, deleteTask } = useTasks();
+ 
   const [modalTask, setModalTask] = useState<any>(null);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
@@ -44,13 +46,13 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
+    <div className="p-6 bg-gray-100 min-h-screen  w-full">
       <div className="flex justify-between items-center mb-6">
         {/* <h1 className="text-3xl font-bold">My Todo List</h1> */}
         <div className='flex items-center'>
 
         <img
-            src="../../public/logo.webp"
+            src="logo.webp"
             className="mx-2"
             width={50}
             height={33}

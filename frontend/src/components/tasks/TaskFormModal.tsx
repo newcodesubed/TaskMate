@@ -27,10 +27,10 @@ const TaskFormModal: React.FC<Props> = ({ task, onClose, onSave }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-6 rounded shadow w-96 flex flex-col gap-4"
+        className="bg-gradient-to-br from-gray-200 to-gray-250  p-6 rounded w-96 flex flex-col gap-4 shadow-xl"
       >
         <h3 className="text-xl font-bold">{task ? 'Edit Task' : 'New Task'}</h3>
         <input
