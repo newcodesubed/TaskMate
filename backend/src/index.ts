@@ -17,4 +17,8 @@ app.use(cookieParser());
 app.use('/api/auth', authRoutes);
 app.use('/api/tasks', taskRoutes);
 
+app.use('/api/health-check', (req,res)=>{
+  res.send({message: 'OK'})
+})
+
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
